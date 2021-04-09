@@ -27,8 +27,9 @@ const Dashboard = {
         m('h5',
           m('em',
             'Powered by ',
-            m('strong', 'Hyperledger Sawtooth')))),
-      m('.blurb',
+            m('strong', 'Hyperledger Sawtooth'))),
+            m("img", { src: "https://w7.pngwing.com/pngs/943/767/png-transparent-black-factory-silhouette-illustration-oil-refinery-euclidean-petroleum-refining-black-coal-factory-miscellaneous-black-hair-black-white.png"}))
+      /*m('.blurb',
         m('p',
           m('em', 'Sawtooth Supply Chain'),
           ' is a general purpose supply chain solution built using the ',
@@ -59,7 +60,7 @@ const Dashboard = {
           'adventurous, these actions can also be accomplished directly ',
           'with the REST API running on the ',
           m('em', 'Supply Chain'),
-          ' server, perfect for automated IoT sensors.'))
+          ' server, perfect for automated IoT sensors.'))*/
     ]
   }
 }
