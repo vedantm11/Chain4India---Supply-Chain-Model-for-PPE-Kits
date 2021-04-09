@@ -463,7 +463,7 @@ const AssetDetail = {
         _row(
           _labelProperty(
             'CertificationStatus',
-            _propLink(record, 'weight', _formatValue(record, 'weight'))),
+            _propLink(record, 'weight', _formatCert(record, 'weight'))),
           (isReporter(record, 'weight', publicKey) && !record.final
           ? m(ReportValue,
             {
@@ -541,6 +541,19 @@ const AssetDetail = {
          : '')
        )
     ]
+  }
+}
+
+const _formatCert = (prop) => {
+  if (prop) {
+    let weight = parsing.toFloat(prop)
+    console.log(weight)
+    if (weight === 2)
+    return 'Uncertified'
+    if (weight === 1)
+    return 'Certified'
+  } else {
+    return 'Unknown'
   }
 }
 
