@@ -13,7 +13,7 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 
-version: '2.0'
+version: '2.1'
 
 services:
 
@@ -72,16 +72,29 @@ services:
       - VALIDATOR_URL=tcp://validator:4004
       - DB_HOST=rethink
 
-  asset-client:
-    image: supply-asset-client-installed
-    container_name: supply-asset-client-installed
+  manufacturer-client:
+    image: supply-manufacturer-client-installed
+    container_name: supply-manufacturer-client-installed
     build:
       context: .
-      dockerfile: asset_client/Dockerfile-installed
+      dockerfile: manufacturer_client/Dockerfile-installed
     expose:
       - 80
     ports:
       - '8021:80'
+    depends_on:
+      - server
+
+  hospital-client:
+    image: supply-hospital-client-installed
+    container_name: supply-hospital-client-installed
+    build:
+      context: .
+      dockerfile: hospital_client/Dockerfile-installed
+    expose:
+      - 80
+    ports:
+      - '8026:80'
     depends_on:
       - server
 
@@ -95,6 +108,19 @@ services:
       - 80
     ports:
       - '8022:80'
+    depends_on:
+      - server
+
+  certifying-client:
+    image: supply-certifying-client-installed
+    container_name: supply-certifying-client-installed
+    build:
+      context: .
+      dockerfile: certifying_client/Dockerfile-installed
+    expose:
+      - 80
+    ports:
+      - '8025:80'
     depends_on:
       - server
 
