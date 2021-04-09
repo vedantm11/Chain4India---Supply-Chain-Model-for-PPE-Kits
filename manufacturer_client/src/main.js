@@ -29,7 +29,6 @@ const navigation = require('./components/navigation')
 const AddAssetForm = require('./views/add_asset_form')
 const AgentDetailPage = require('./views/agent_detail')
 const AgentList = require('./views/list_agents')
-const AllAgentList = require('./views/list_all_agents.js')
 const AssetList = require('./views/list_assets')
 const AssetDetail = require('./views/asset_detail')
 const Dashboard = require('./views/dashboard')
@@ -52,10 +51,8 @@ const Layout = {
 const loggedInNav = () => {
   const links = [
     ['/create', 'Add Asset'],
-    ['/assets', 'View Equipments'],
-    ['/agents', 'View Certifiers']
-    ['/allagents', 'View Participants']
-
+    ['/assets', 'View Assets'],
+    ['/agents', 'View Agents']
   ]
   return m(navigation.Navbar, {}, [
     navigation.links(links),
@@ -66,10 +63,8 @@ const loggedInNav = () => {
 
 const loggedOutNav = () => {
   const links = [
-    ['/assets', 'View Equipments'],
-    ['/agents', 'View Certifiers']
-    ['/allagents', 'View Participants']
-
+    ['/assets', 'View Assets'],
+    ['/agents', 'View Agents']
   ]
   return m(navigation.Navbar, {}, [
     navigation.links(links),
@@ -126,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
     '/': resolve(Dashboard),
     '/agents/:publicKey': resolve(AgentDetailPage),
     '/agents': resolve(AgentList),
-    '/allagents': resolve(AllAgentList),
     '/create': resolve(AddAssetForm, true),
     '/assets/:recordId': resolve(AssetDetail),
     '/assets': resolve(AssetList),
