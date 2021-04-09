@@ -21,6 +21,7 @@ const moment = require('moment')
 const truncate = require('lodash/truncate')
 
 const {MultiSelect} = require('../components/forms')
+const {getLocationPromise} = require('../components/data')
 const payloads = require('../services/payloads')
 const parsing = require('../services/parsing')
 const transactions = require('../services/transactions')
@@ -36,7 +37,7 @@ const {
  * Possible selection options
  */
 const authorizableProperties = [
-  ['weight', 'Weight'],
+  ['weight', 'Certification Status'],
   ['location', 'Location'],
   ['temperature', 'Temperature'],
   ['shock', 'Shock']
@@ -190,7 +191,7 @@ const ReporterControl = {
         record.proposals.filter((p) => p.role === 'REPORTER' && p.issuingAgent === publicKey).map(
           (p) =>
             m('.mt-2.d-flex.justify-content-start',
-              `Pending proposal for ${_agentByKey(agents, p.receivingAgent).name} on ${p.properties}`,
+              `Pending proposal for ${_agentByKey(agents, p.receivingAgent).name}`,
               m('.button.btn.btn-outline-danger.ml-auto',
                 {
                   onclick: (e) => {
@@ -258,6 +259,7 @@ const _propLink = (record, propName, content) =>
     { oncreate: m.route.link },
     content)
 
+// OLD LOCATION UPDATER
 const ReportLocation = {
   view: (vnode) => {
     let onsuccess = vnode.attrs.onsuccess || (() => null)
@@ -315,7 +317,18 @@ const ReportLocation = {
   }
 }
 
+// NEW LOCATION UPDATER
+const ReportLocationButton = {
+  view: (vnode) => {
+    return m('button.btn.btn-primary.btn-block.text-left', 
+      {onclick: () => _updateLocation(vnode.attrs.record)}, 
+      'Update Location')
+  }
+}
+
 const ReportValue = {
+
+
   view: (vnode) => {
     let onsuccess = vnode.attrs.onsuccess || (() => null)
     let xform = vnode.attrs.xform || ((x) => x)
@@ -462,13 +475,13 @@ const AssetDetail = {
 
         _row(
           _labelProperty(
-            'Weight',
-            _propLink(record, 'weight', _formatValue(record, 'weight'))),
+            'Certification*Status',
+            _propLink(record, 'weight', _formatCert(getPropertyValue(record, 'weight')))),
           (isReporter(record, 'weight', publicKey) && !record.final
           ? m(ReportValue,
             {
               name: 'weight',
-              label: 'Weight (kg)',
+              label: 'Certification Status',
               record,
               typeField: 'intValue',
               type: payloads.updateProperties.enum.INT,
@@ -483,7 +496,7 @@ const AssetDetail = {
             _propLink(record, 'location', _formatLocation(getPropertyValue(record, 'location')))
           ),
           (isReporter(record, 'location', publicKey) && !record.final
-           ? m(ReportLocation, { record, onsuccess: () => _loadData(record.recordId, vnode.state) })
+           ? m(ReportLocationButton, { record, onsuccess: () => _loadData(record.recordId, vnode.state) })
            : null)),
 
         _row(
@@ -544,12 +557,35 @@ const AssetDetail = {
   }
 }
 
+const _updateLocation = (record) => {
+  getLocationPromise
+  .then(coords => {
+    _updateProperty(record, {
+      name: 'location',
+      locationValue: coords,
+      dataType: payloads.updateProperties.enum.LOCATION
+    })
+  }) 
+}
+
 const _formatValue = (record, propName) => {
   let prop = getPropertyValue(record, propName)
   if (prop) {
     return parsing.stringifyValue(parsing.floatifyValue(prop), '***', propName)
   } else {
     return 'N/A'
+  }
+}
+
+const _formatCert = (prop) => {
+  if (prop) {
+    let weight = parsing.toFloat(prop)
+    if (weight === 1)
+    return 'Uncertified'
+    if (weight === 2)
+    return 'Certified'
+  } else {
+    return 'Unknown'
   }
 }
 
