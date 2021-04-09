@@ -490,6 +490,22 @@ const AssetDetail = {
           (isReporter(record, 'location', publicKey) && !record.final
            ? m(ReportLocation, { record, onsuccess: () => _loadData(record.recordId, vnode.state) })
            : null)),
+           _row(
+            _labelProperty(
+              'Temperature',
+              _propLink(record, 'temperature', _formatTemp(getPropertyValue(record, 'temperature')))),
+            (isReporter(record, 'temperature', publicKey) && !record.final
+            ? console.log('Unable to access')
+             : null)),
+  
+          _row(
+            _labelProperty(
+              'Shock',
+              _propLink(record, 'shock', _formatValue(record, 'shock'))),
+            (isReporter(record, 'shock', publicKey) && !record.final
+            ? console.log('Unable to Access')
+             : null)),
+  
 
         _row(m(ReporterControl, {
           record,
