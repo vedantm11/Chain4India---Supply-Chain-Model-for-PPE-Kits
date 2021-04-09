@@ -13,8 +13,8 @@ const Dashboard = {
           m('em',
             'Powered by ',
             m('strong', 'HyperLedger Sawtooth'))),
-            m("img", { src: "https://comps.gograph.com/hospital-building-scenery-in-black-and-white_gg109242883.jpg"}))
-      /*m('.blurb',
+            //m("img", { src: "https://comps.gograph.com/hospital-building-scenery-in-black-and-white_gg109242883.jpg"}))
+      m('.blurb',
         m('p',
           m('em', 'Sawtooth Supply Chain'),
           ' is a general purpose supply chain solution built using the ',
@@ -45,7 +45,7 @@ const Dashboard = {
           'adventurous, these actions can also be accomplished directly ',
           'with the REST API running on the ',
           m('em', 'Supply Chain'),
-          ' server, perfect for automated IoT sensors.')),*/
+          ' server, perfect for automated IoT sensors.')))
     ]   
   }
 }
