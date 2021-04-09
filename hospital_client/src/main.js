@@ -37,7 +37,7 @@ const Layout = {
 const loggedInNav = () => {
   const links = [
   
-    ['/assets', 'View Equipment'],
+    ['/assets', 'View Equipments'],
     ['/agents', 'View Participants'],
     
   ]
@@ -50,7 +50,7 @@ const loggedInNav = () => {
 
 const loggedOutNav = () => {
   const links = [
-    ['/assets', 'View Equipment'],
+    ['/assets', 'View Equipments'],
     ['/agents', 'View Participants']
   ]
   return m(navigation.Navbar, {}, [

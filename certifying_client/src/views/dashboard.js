@@ -27,7 +27,7 @@ const Dashboard = {
         m('h5',
           m('em',
             'Powered by ',
-            m('strong', 'NGO Care4Maharashtra.org')))),
+            m('strong', 'Hyperledger Sawtooth')))),
       m('.blurb',
         m('p',
           m('em', 'Sawtooth Supply Chain'),

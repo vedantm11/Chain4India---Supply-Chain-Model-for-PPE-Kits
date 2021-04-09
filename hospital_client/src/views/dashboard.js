@@ -6,14 +6,14 @@ const m = require('mithril')
 const Dashboard = {
   view (vnode) {
     return [
-     /* m('.header.text-center.mb-4',
+      m('.header.text-center.mb-4',
         m('h4', 'Welcome To'),
         m('h1.mb-3', 'Hospital Client'),
         m('h5',
           m('em',
             'Powered by ',
             m('strong', 'HyperLedger Sawtooth')))),
-      m('.blurb',
+      /*m('.blurb',
         m('p',
           m('em', 'Sawtooth Supply Chain'),
           ' is a general purpose supply chain solution built using the ',
@@ -45,7 +45,7 @@ const Dashboard = {
           'with the REST API running on the ',
           m('em', 'Supply Chain'),
           ' server, perfect for automated IoT sensors.')),*/
-          m("div", {'style': { 'background-image' : 'url(\"https://lh3.googleusercontent.com/proxy/PXVWsXSUBaMRNykNKfNu6cE6_DbhY_hmEivEo2o9YIm_ym9-AI-k3F7vy3OncDQcCWNkOnq4mXOPJfhR_7i97xZ9gEib6xQq")'}},"div a")
+        m('img','src: "https://mk0ehealtheletsj3t14.kinstacdn.com/wp-content/uploads/2015/07/hospital-clipart.png.jpg"' )
     ]
   }
 }
