@@ -37,7 +37,9 @@ const {
  */
 const authorizableProperties = [
   ['weight', 'Certification Status'],
-  ['location', 'Location']
+  ['location', 'Location'],
+  ['temperature', 'Temperature'],
+  ['shock', 'Shock']
 ]
 
 const _labelProperty = (label, value) => [
@@ -172,7 +174,7 @@ const ReporterControl = {
         .map(([key, properties]) => {
           return [
             m('.mt-2.d-flex.justify-content-start',
-              `${_agentByKey(agents, key).name} authorized`,
+              `${_agentByKey(agents, key).name} authorized for ${properties}`,
               m('.button.btn.btn-outline-danger.ml-auto', {
                 onclick: (e) => {
                   e.preventDefault()
@@ -334,36 +336,34 @@ const ReportValue = {
         m('.form-row',
           m('.form-group.col-10',
             m('label.sr-only', { 'for': vnode.attrs.name }, vnode.attrs.label),
-            m("select", {
-              name: vnode.attrs.name,
-              onchange: m.withAttr('value', (value) => {
-                vnode.state.value = value
-              }),
-              value: vnode.state.value,
-              placeholder: vnode.attrs.label
-            })),
+            m("select", 
+                 	[    
+      m("option", {onclick: (e)=>{
+         e.preventDefault()
+         vnode.state.value = 2}}, 
+        "Uncertified"),
+     m("option", {onclick: (e)=>{
+         e.preventDefault()
+         vnode.state.value = 1}}, 
+        "Certified")
+                     ]
+
+            // {
+            //   name: vnode.attrs.name,
+            //   onchange: m.withAttr('value', (value) => {
+            //     vnode.state.value = value
+            //   }),
+            //   value: vnode.state.value,
+            //   placeholder: vnode.attrs.label
+            // }
+            )),
          m('.col-2',
            m('button.btn.btn-primary', 'Update'))))
     ]
   }
 }
-/*
-m('form',
-  m("select",
-[    
-      m("option", {onclick: (e)=>{
-         e.preventDefault()
-         onValue(2)}}, 
-        "Uncertified"),
-     m("option", {onclick: (e)=>{
-         e.preventDefault()
-         onValue(1)}}, 
-        "Certified")
-]
 
-      ))
-}
-*/
+
 const AuthorizeReporter = {
   oninit (vnode) {
     vnode.state.properties = []
@@ -471,15 +471,24 @@ const AssetDetail = {
           })),
 
         _row(
-          _labelProperty('Quality', getPropertyValue(record, 'type')),
-          _labelProperty('Quantity', getPropertyValue(record, 'subtype'))),
+          _labelProperty('Type', getPropertyValue(record, 'type')),
+          _labelProperty('Subtype', getPropertyValue(record, 'subtype'))),
 
         _row(
           _labelProperty(
             'Certification Status',
             _propLink(record, 'weight', _formatCert(getPropertyValue(record, 'weight')))),
           (isReporter(record, 'weight', publicKey) && !record.final
-          ? console.log('Certification processing')
+          ? m(ReportValue,
+            {
+              name: 'weight',
+              label: 'Certification Status',
+              record,
+              typeField: 'intValue',
+              type: payloads.updateProperties.enum.INT,
+              xform: (x) => parsing.toInt(x),
+              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
+            })
            : null)),
 
         _row(
@@ -489,6 +498,22 @@ const AssetDetail = {
           ),
           (isReporter(record, 'location', publicKey) && !record.final
            ? m(ReportLocation, { record, onsuccess: () => _loadData(record.recordId, vnode.state) })
+           : null)),
+
+        _row(
+          _labelProperty(
+            'Temperature',
+            _propLink(record, 'temperature', _formatTemp(getPropertyValue(record, 'temperature')))),
+          (isReporter(record, 'temperature', publicKey) && !record.final
+          ? console.log('Unable to Access')
+           : null)),
+
+        _row(
+          _labelProperty(
+            'Shock',
+            _propLink(record, 'shock', _formatValue(record, 'shock'))),
+          (isReporter(record, 'shock', publicKey) && !record.final
+          ? console.log('Unable to Access')
            : null)),
 
         _row(m(ReporterControl, {
@@ -528,10 +553,10 @@ const _formatCert = (prop) => {
   if (prop) {
     let weight = parsing.toFloat(prop)
     console.log(weight)
-    if (weight === 2)
-    return 'Uncertified'
     if (weight === 1)
     return 'Certified'
+    if (weight === 2)
+    return 'Uncertified'
   } else {
     return 'Unknown'
   }
