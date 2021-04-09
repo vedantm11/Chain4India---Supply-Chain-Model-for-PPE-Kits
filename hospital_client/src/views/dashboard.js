@@ -12,7 +12,8 @@ const Dashboard = {
         m('h5',
           m('em',
             'Powered by ',
-            m('strong', 'HyperLedger Sawtooth')))),
+            m('strong', 'HyperLedger Sawtooth'))),
+            m("img", { src: "https://comps.gograph.com/hospital-building-scenery-in-black-and-white_gg109242883.jpg"}))
       /*m('.blurb',
         m('p',
           m('em', 'Sawtooth Supply Chain'),
@@ -45,8 +46,7 @@ const Dashboard = {
           'with the REST API running on the ',
           m('em', 'Supply Chain'),
           ' server, perfect for automated IoT sensors.')),*/
-        m('img','src: "https://mk0ehealtheletsj3t14.kinstacdn.com/wp-content/uploads/2015/07/hospital-clipart.png.jpg"' )
-    ]
+    ]   
   }
 }
 
