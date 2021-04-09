@@ -37,9 +37,7 @@ const {
  */
 const authorizableProperties = [
   ['weight', 'Certification Status'],
-  ['location', 'Location'],
-  ['temperature', 'Temperature'],
-  ['shock', 'Shock']
+  ['location', 'Location']
 ]
 
 const _labelProperty = (label, value) => [
@@ -174,7 +172,7 @@ const ReporterControl = {
         .map(([key, properties]) => {
           return [
             m('.mt-2.d-flex.justify-content-start',
-              `${_agentByKey(agents, key).name} authorized for ${properties}`,
+              `${_agentByKey(agents, key).name} authorized`,
               m('.button.btn.btn-outline-danger.ml-auto', {
                 onclick: (e) => {
                   e.preventDefault()
@@ -190,7 +188,7 @@ const ReporterControl = {
         record.proposals.filter((p) => p.role === 'REPORTER' && p.issuingAgent === publicKey).map(
           (p) =>
             m('.mt-2.d-flex.justify-content-start',
-              `Pending proposal for ${_agentByKey(agents, p.receivingAgent).name} on ${p.properties}`,
+              `Pending proposal for ${_agentByKey(agents, p.receivingAgent).name}`,
               m('.button.btn.btn-outline-danger.ml-auto',
                 {
                   onclick: (e) => {
@@ -215,7 +213,7 @@ const ReporterControl = {
                 .then(onsuccess)
             }
           },
-          `Accept Reporting Authorization for ${proposal.properties}`),
+          `Accept Reporting Authorization`),
           m('button.btn.btn-danger.ml-auto', {
             onclick: (e) => {
               e.preventDefault()
@@ -336,7 +334,7 @@ const ReportValue = {
         m('.form-row',
           m('.form-group.col-10',
             m('label.sr-only', { 'for': vnode.attrs.name }, vnode.attrs.label),
-            m("input.form-control[type='text']", {
+            m("select", {
               name: vnode.attrs.name,
               onchange: m.withAttr('value', (value) => {
                 vnode.state.value = value
@@ -349,7 +347,23 @@ const ReportValue = {
     ]
   }
 }
+/*
+m('form',
+  m("select",
+[    
+      m("option", {onclick: (e)=>{
+         e.preventDefault()
+         onValue(2)}}, 
+        "Uncertified"),
+     m("option", {onclick: (e)=>{
+         e.preventDefault()
+         onValue(1)}}, 
+        "Certified")
+]
 
+      ))
+}
+*/
 const AuthorizeReporter = {
   oninit (vnode) {
     vnode.state.properties = []
@@ -457,16 +471,16 @@ const AssetDetail = {
           })),
 
         _row(
-          _labelProperty('Type', getPropertyValue(record, 'type')),
-          _labelProperty('Subtype', getPropertyValue(record, 'subtype'))),
+          _labelProperty('Quality', getPropertyValue(record, 'type')),
+          _labelProperty('Quantity', getPropertyValue(record, 'subtype'))),
 
-          _row(
-            _labelProperty(
-              'Certification Status',
-              _propLink(record, 'weight', _formatCert(getPropertyValue(record, 'weight')))),
-            (isReporter(record, 'weight', publicKey) && !record.final
-            ? console.log('Certification processing')
-             : null)),
+        _row(
+          _labelProperty(
+            'Certification Status',
+            _propLink(record, 'weight', _formatCert(getPropertyValue(record, 'weight')))),
+          (isReporter(record, 'weight', publicKey) && !record.final
+          ? console.log('Certification processing')
+           : null)),
 
         _row(
           _labelProperty(
@@ -501,6 +515,15 @@ const AssetDetail = {
   }
 }
 
+const _formatValue = (record, propName) => {
+  let prop = getPropertyValue(record, propName)
+  if (prop) {
+    return parsing.stringifyValue(parsing.floatifyValue(prop), '***', propName)
+  } else {
+    return 'N/A'
+  }
+}
+
 const _formatCert = (prop) => {
   if (prop) {
     let weight = parsing.toFloat(prop)
@@ -511,15 +534,6 @@ const _formatCert = (prop) => {
     return 'Certified'
   } else {
     return 'Unknown'
-  }
-}
-
-const _formatValue = (record, propName) => {
-  let prop = getPropertyValue(record, propName)
-  if (prop) {
-    return parsing.stringifyValue(parsing.floatifyValue(prop), '***', propName)
-  } else {
-    return 'N/A'
   }
 }
 
