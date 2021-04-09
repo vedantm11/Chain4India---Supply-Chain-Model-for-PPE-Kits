@@ -28,7 +28,7 @@ const Dashboard = {
           m('em',
             'Powered by ',
             m('strong', 'Hyperledger Sawtooth'))),
-            m("img", { src: "https://comps.gograph.com/hospital-building-scenery-in-black-and-white_gg109242883.jpg"}))
+            m("img", { src: "https://www.kindpng.com/picc/m/418-4187833_factory-clipart-manufacturing-company-manufacturing-facility-factory-icon.png"}))
      /* m('.blurb',
         m('p',
           m('em', 'Sawtooth Supply Chain'),
