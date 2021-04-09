@@ -19,14 +19,16 @@ services:
 
   shell:
     image: supply-shell
-    container_name: supply-shell
+    container_name: supply-shell4
     build:
       context: .
       dockerfile: shell/Dockerfile
     volumes:
       - .:/sawtooth-supply-chain
-      - /sawtooth-supply-chain/asset_client/node_modules
+      - /sawtooth-supply-chain/manufacturer_client/node_modules
       - /sawtooth-supply-chain/fish_client/node_modules
+      - /sawtooth-supply-chain/certifying_client/node_modules
+      - /sawtooth-supply-chain/hospital_client/node_modules
       - /sawtooth-supply-chain/server/node_modules
     depends_on:
       - rethink
@@ -38,8 +40,10 @@ services:
     command: |
       bash -c "
         protogen &&
-        cd asset_client/ && npm run build && cd - &&
+        cd manufacturer_client/ && npm run build && cd - &&
         cd fish_client/ && npm run build && cd - &&
+        cd certifying_client/ && npm run build && cd - &&
+        cd hospital_client/ && npm run build && cd - &&
         if [ ! -f /root/.sawtooth/keys/root.priv ]; then
           sawtooth keygen &&
           cd server/ &&
@@ -55,7 +59,7 @@ services:
 
   processor:
     image: supply-tp
-    container_name: supply-tp
+    container_name: supply-tp4
     build:
       context: processor/
       args:
@@ -72,7 +76,7 @@ services:
 
   server:
     image: supply-server
-    container_name: supply-server
+    container_name: supply-server4
     build:
       context: .
       dockerfile: server/Dockerfile
@@ -98,7 +102,7 @@ services:
 
   ledger-sync:
     image: supply-ledger-sync
-    container_name: supply-ledger-sync
+    container_name: supply-ledger-sync4
     build:
       context: .
       dockerfile: ledger_sync/Dockerfile
@@ -112,12 +116,12 @@ services:
       - VALIDATOR_URL=tcp://validator:4004
       - DB_HOST=rethink
 
-  asset-client:
-    image: supply-asset-client
-    container_name: supply-asset-client
-    build: ./asset_client
+  manufacturer-client:
+    image: supply-manufacturer-client
+    container_name: supply-manufacturer-client4
+    build: ./manufacturer_client
     volumes:
-      - ./asset_client/public/:/usr/local/apache2/htdocs/
+      - ./manufacturer_client/public/:/usr/local/apache2/htdocs/
     expose:
       - 80
     ports:
@@ -125,9 +129,22 @@ services:
     depends_on:
       - server
 
+  hospital-client:
+    image: supply-hospital-client
+    container_name: supply-hospital-client4
+    build: ./hospital_client
+    volumes:
+      - ./hospital_client/public/:/usr/local/apache2/htdocs/
+    expose:
+      - 80
+    ports:
+      - '8026:80'
+    depends_on:
+      - server
+
   fish-client:
     image: supply-fish-client
-    container_name: supply-fish-client
+    container_name: supply-fish-client4
     build: ./fish_client
     volumes:
       - ./fish_client/public/:/usr/local/apache2/htdocs/
@@ -138,9 +155,22 @@ services:
     depends_on:
       - server
 
+  certifying-client:
+    image: supply-certifying-client
+    container_name: supply-certifying-client4
+    build: ./certifying_client
+    volumes:
+      - ./certifying_client/public/:/usr/local/apache2/htdocs/
+    expose:
+      - 80
+    ports:
+      - '8025:80'
+    depends_on:
+      - server
+
   rethink:
     image: rethinkdb
-    container_name: supply-rethink
+    container_name: supply-rethink4
     expose:
       - 8080
       - 28015
@@ -150,7 +180,7 @@ services:
 
   validator:
     image: hyperledger/sawtooth-validator:1.0
-    container_name: supply-validator
+    container_name: supply-validator4
     expose:
       - 4004
     ports:
@@ -172,14 +202,14 @@ services:
 
   settings-tp:
     image: hyperledger/sawtooth-settings-tp:1.0
-    container_name: supply-settings-tp
+    container_name: supply-settings-tp4
     depends_on:
       - validator
     entrypoint: settings-tp -vv -C tcp://validator:4004
 
   rest-api:
     image: hyperledger/sawtooth-rest-api:1.0
-    container_name: supply-rest-api
+    container_name: supply-rest-api4
     expose:
       - 8008
     ports:
