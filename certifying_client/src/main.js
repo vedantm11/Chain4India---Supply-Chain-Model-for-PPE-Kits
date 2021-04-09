@@ -26,7 +26,6 @@ const api = require('./services/api')
 const transactions = require('./services/transactions')
 const navigation = require('./components/navigation')
 
-const AddAssetForm = require('./views/add_asset_form')
 const AgentDetailPage = require('./views/agent_detail')
 const AgentList = require('./views/list_agents')
 const AssetList = require('./views/list_assets')
@@ -120,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
     '/': resolve(Dashboard),
     '/agents/:publicKey': resolve(AgentDetailPage),
     '/agents': resolve(AgentList),
-    '/create': resolve(AddAssetForm, true),
     '/assets/:recordId': resolve(AssetDetail),
     '/assets': resolve(AssetList),
     '/login': resolve(LoginForm),
