@@ -36,10 +36,10 @@ const Layout = {
 
 const loggedInNav = () => {
   const links = [
-    ['/create', 'Add Asset'],
+   // ['/create', 'Add Asset'],
     ['/assets', 'View Assets'],
     ['/agents', 'View Agents'],
-    ['/add','Add Order']
+    //['/add','Add Order']
   ]
   return m(navigation.Navbar, {}, [
     navigation.links(links),
