@@ -19,7 +19,7 @@ services:
 
   shell:
     image: supply-shell
-    container_name: supply-shell4
+    container_name: supply-shell
     build:
       context: .
       dockerfile: shell/Dockerfile
@@ -59,7 +59,7 @@ services:
 
   processor:
     image: supply-tp
-    container_name: supply-tp4
+    container_name: supply-tp
     build:
       context: processor/
       args:
@@ -76,7 +76,7 @@ services:
 
   server:
     image: supply-server
-    container_name: supply-server4
+    container_name: supply-server
     build:
       context: .
       dockerfile: server/Dockerfile
@@ -102,7 +102,7 @@ services:
 
   ledger-sync:
     image: supply-ledger-sync
-    container_name: supply-ledger-sync4
+    container_name: supply-ledger-sync
     build:
       context: .
       dockerfile: ledger_sync/Dockerfile
@@ -118,7 +118,7 @@ services:
 
   manufacturer-client:
     image: supply-manufacturer-client
-    container_name: supply-manufacturer-client4
+    container_name: supply-manufacturer-client
     build: ./manufacturer_client
     volumes:
       - ./manufacturer_client/public/:/usr/local/apache2/htdocs/
@@ -131,7 +131,7 @@ services:
 
   hospital-client:
     image: supply-hospital-client
-    container_name: supply-hospital-client4
+    container_name: supply-hospital-client
     build: ./hospital_client
     volumes:
       - ./hospital_client/public/:/usr/local/apache2/htdocs/
@@ -144,7 +144,7 @@ services:
 
   fish-client:
     image: supply-fish-client
-    container_name: supply-fish-client4
+    container_name: supply-fish-client
     build: ./fish_client
     volumes:
       - ./fish_client/public/:/usr/local/apache2/htdocs/
@@ -157,7 +157,7 @@ services:
 
   certifying-client:
     image: supply-certifying-client
-    container_name: supply-certifying-client4
+    container_name: supply-certifying-client
     build: ./certifying_client
     volumes:
       - ./certifying_client/public/:/usr/local/apache2/htdocs/
@@ -170,7 +170,7 @@ services:
 
   rethink:
     image: rethinkdb
-    container_name: supply-rethink4
+    container_name: supply-rethink
     expose:
       - 8080
       - 28015
@@ -180,7 +180,7 @@ services:
 
   validator:
     image: hyperledger/sawtooth-validator:1.0
-    container_name: supply-validator4
+    container_name: supply-validator
     expose:
       - 4004
     ports:
@@ -202,14 +202,14 @@ services:
 
   settings-tp:
     image: hyperledger/sawtooth-settings-tp:1.0
-    container_name: supply-settings-tp4
+    container_name: supply-settings-tp
     depends_on:
       - validator
     entrypoint: settings-tp -vv -C tcp://validator:4004
 
   rest-api:
     image: hyperledger/sawtooth-rest-api:1.0
-    container_name: supply-rest-api4
+    container_name: supply-rest-api
     expose:
       - 8008
     ports:
