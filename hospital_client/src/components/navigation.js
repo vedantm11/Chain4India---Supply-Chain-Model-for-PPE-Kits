@@ -9,7 +9,7 @@ const m = require('mithril')
 const Navbar = {
   view (vnode) {
     return m('nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.mb-5', [
-      m('a.navbar-brand[href="/"]', { oncreate: m.route.link }, 'AssetTrack'),
+      m('a.navbar-brand[href="/"]', { oncreate: m.route.link }, 'Chain4India'),
       m('button.navbar-toggler', {
         type: 'button',
         'data-toggle': 'collapse',
