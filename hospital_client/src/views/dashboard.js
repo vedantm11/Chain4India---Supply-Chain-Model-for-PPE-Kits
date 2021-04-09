@@ -44,7 +44,8 @@ const Dashboard = {
           'adventurous, these actions can also be accomplished directly ',
           'with the REST API running on the ',
           m('em', 'Supply Chain'),
-          ' server, perfect for automated IoT sensors.'))
+          ' server, perfect for automated IoT sensors.')),
+          m("div", {'style': { 'background-image' : 'url(\"https://lh3.googleusercontent.com/proxy/PXVWsXSUBaMRNykNKfNu6cE6_DbhY_hmEivEo2o9YIm_ym9-AI-k3F7vy3OncDQcCWNkOnq4mXOPJfhR_7i97xZ9gEib6xQq")'}},"div a")
     ]
   }
 }
