@@ -29,8 +29,7 @@ const layout = require('../components/layout')
  */
 const authorizableProperties = [
   ['weight', 'Certification Status'],
-  ['location', 'Location']
-  
+  ['location', 'Location'],
 ]
 
 /**
@@ -62,7 +61,7 @@ const AddAssetForm = {
             _handleSubmit(vnode.attrs.signingKey, vnode.state)
           }
         },
-        m('legend', 'Track New Asset'),
+        m('legend', 'Track New Equipment'),
         forms.textInput(setter('serialNumber'), 'Serial Number'),
 
         layout.row([
