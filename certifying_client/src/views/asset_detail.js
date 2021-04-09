@@ -460,22 +460,13 @@ const AssetDetail = {
           _labelProperty('Type', getPropertyValue(record, 'type')),
           _labelProperty('Subtype', getPropertyValue(record, 'subtype'))),
 
-        _row(
-          _labelProperty(
-            'CertificationStatus',
-            _propLink(record, 'weight', _formatCert(record, 'weight'))),
-          (isReporter(record, 'weight', publicKey) && !record.final
-          ? m(ReportValue,
-            {
-              name: 'weight',
-              label: 'Certification Status',
-              record,
-              typeField: 'intValue',
-              type: payloads.updateProperties.enum.INT,
-              xform: (x) => parsing.toInt(x),
-              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-            })
-           : null)),
+          _row(
+            _labelProperty(
+              'Certification Status',
+              _propLink(record, 'weight', _formatCert(getPropertyValue(record, 'weight')))),
+            (isReporter(record, 'weight', publicKey) && !record.final
+            ? console.log('Certification processing')
+             : null)),
 
         _row(
           _labelProperty(
@@ -484,40 +475,6 @@ const AssetDetail = {
           ),
           (isReporter(record, 'location', publicKey) && !record.final
            ? m(ReportLocation, { record, onsuccess: () => _loadData(record.recordId, vnode.state) })
-           : null)),
-
-        _row(
-          _labelProperty(
-            'Temperature',
-            _propLink(record, 'temperature', _formatTemp(getPropertyValue(record, 'temperature')))),
-          (isReporter(record, 'temperature', publicKey) && !record.final
-          ? m(ReportValue,
-            {
-              name: 'temperature',
-              label: 'Temperature (°C)',
-              record,
-              typeField: 'intValue',
-              type: payloads.updateProperties.enum.INT,
-              xform: (x) => parsing.toInt(x),
-              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-            })
-           : null)),
-
-        _row(
-          _labelProperty(
-            'Shock',
-            _propLink(record, 'shock', _formatValue(record, 'shock'))),
-          (isReporter(record, 'shock', publicKey) && !record.final
-          ? m(ReportValue,
-            {
-              name: 'shock',
-              label: 'Shock (g)',
-              record,
-              typeField: 'intValue',
-              type: payloads.updateProperties.enum.INT,
-              xform: (x) => parsing.toInt(x),
-              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-            })
            : null)),
 
         _row(m(ReporterControl, {
