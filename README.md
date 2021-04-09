@@ -8,12 +8,7 @@
 - [Components](#components)
 - [Usage](#usage)
   - [Start Up](#start-up)
-  - [Running Scripts in the Shell](#running-scripts-in-the-shell)
   - [Configuring API Keys and Secrets](#configuring-api-keys-and-secrets)
-- [Development](#development)
-  - [Restarting Components](#restarting-components)
-  - [Manually Building Generated Files](#manually-building-generated-files)
-- [Documentation](#documentation)
 - [License](#license)
 
 ## Components
