@@ -34,6 +34,7 @@ required to run Supply Chain components.
 ### Start Up
 
 - The Supply Chain REST API will be at **http://localhost:8020**
+- Hospital Client will be at **http://localhost:8026**
 - Manufacturer Client will be at **http://localhost:8021**
 - Certifying Client will be at **http://localhost:8025**
 - RethinkDB's admin panel will be available at **http://localhost:8023**
