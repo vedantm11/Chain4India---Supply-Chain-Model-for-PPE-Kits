@@ -98,18 +98,6 @@ services:
     depends_on:
       - server
 
-  fish-client:
-    image: supply-fish-client-installed
-    container_name: supply-fish-client-installed
-    build:
-      context: .
-      dockerfile: fish_client/Dockerfile-installed
-    expose:
-      - 80
-    ports:
-      - '8022:80'
-    depends_on:
-      - server
 
   certifying-client:
     image: supply-certifying-client-installed

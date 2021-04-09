@@ -21,7 +21,6 @@ const moment = require('moment')
 const truncate = require('lodash/truncate')
 
 const {MultiSelect} = require('../components/forms')
-const {getLocationPromise} = require('../components/data')
 const payloads = require('../services/payloads')
 const parsing = require('../services/parsing')
 const transactions = require('../services/transactions')
@@ -38,9 +37,7 @@ const {
  */
 const authorizableProperties = [
   ['weight', 'Certification Status'],
-  ['location', 'Location'],
-  ['temperature', 'Temperature'],
-  ['shock', 'Shock']
+  ['location', 'Location']
 ]
 
 const _labelProperty = (label, value) => [
@@ -175,7 +172,7 @@ const ReporterControl = {
         .map(([key, properties]) => {
           return [
             m('.mt-2.d-flex.justify-content-start',
-              `${_agentByKey(agents, key).name} authorized for ${properties}`,
+              `${_agentByKey(agents, key).name} authorized`,
               m('.button.btn.btn-outline-danger.ml-auto', {
                 onclick: (e) => {
                   e.preventDefault()
@@ -216,7 +213,7 @@ const ReporterControl = {
                 .then(onsuccess)
             }
           },
-          `Accept Reporting Authorization for ${proposal.properties}`),
+          `Accept Reporting Authorization`),
           m('button.btn.btn-danger.ml-auto', {
             onclick: (e) => {
               e.preventDefault()
@@ -259,7 +256,6 @@ const _propLink = (record, propName, content) =>
     { oncreate: m.route.link },
     content)
 
-// OLD LOCATION UPDATER
 const ReportLocation = {
   view: (vnode) => {
     let onsuccess = vnode.attrs.onsuccess || (() => null)
@@ -317,18 +313,7 @@ const ReportLocation = {
   }
 }
 
-// NEW LOCATION UPDATER
-const ReportLocationButton = {
-  view: (vnode) => {
-    return m('button.btn.btn-primary.btn-block.text-left', 
-      {onclick: () => _updateLocation(vnode.attrs.record)}, 
-      'Update Location')
-  }
-}
-
 const ReportValue = {
-
-
   view: (vnode) => {
     let onsuccess = vnode.attrs.onsuccess || (() => null)
     let xform = vnode.attrs.xform || ((x) => x)
@@ -349,7 +334,7 @@ const ReportValue = {
         m('.form-row',
           m('.form-group.col-10',
             m('label.sr-only', { 'for': vnode.attrs.name }, vnode.attrs.label),
-            m("input.form-control[type='text']", {
+            m("select", {
               name: vnode.attrs.name,
               onchange: m.withAttr('value', (value) => {
                 vnode.state.value = value
@@ -362,7 +347,23 @@ const ReportValue = {
     ]
   }
 }
+/*
+m('form',
+  m("select",
+[    
+      m("option", {onclick: (e)=>{
+         e.preventDefault()
+         onValue(2)}}, 
+        "Uncertified"),
+     m("option", {onclick: (e)=>{
+         e.preventDefault()
+         onValue(1)}}, 
+        "Certified")
+]
 
+      ))
+}
+*/
 const AuthorizeReporter = {
   oninit (vnode) {
     vnode.state.properties = []
@@ -475,19 +476,10 @@ const AssetDetail = {
 
         _row(
           _labelProperty(
-            'Certification*Status',
+            'Certification Status',
             _propLink(record, 'weight', _formatCert(getPropertyValue(record, 'weight')))),
           (isReporter(record, 'weight', publicKey) && !record.final
-          ? m(ReportValue,
-            {
-              name: 'weight',
-              label: 'Certification Status',
-              record,
-              typeField: 'intValue',
-              type: payloads.updateProperties.enum.INT,
-              xform: (x) => parsing.toInt(x),
-              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-            })
+          ? console.log('Certification processing')
            : null)),
 
         _row(
@@ -496,7 +488,7 @@ const AssetDetail = {
             _propLink(record, 'location', _formatLocation(getPropertyValue(record, 'location')))
           ),
           (isReporter(record, 'location', publicKey) && !record.final
-           ? m(ReportLocationButton, { record, onsuccess: () => _loadData(record.recordId, vnode.state) })
+           ? m(ReportLocation, { record, onsuccess: () => _loadData(record.recordId, vnode.state) })
            : null)),
 
         _row(
@@ -504,16 +496,7 @@ const AssetDetail = {
             'Temperature',
             _propLink(record, 'temperature', _formatTemp(getPropertyValue(record, 'temperature')))),
           (isReporter(record, 'temperature', publicKey) && !record.final
-          ? m(ReportValue,
-            {
-              name: 'temperature',
-              label: 'Temperature (°C)',
-              record,
-              typeField: 'intValue',
-              type: payloads.updateProperties.enum.INT,
-              xform: (x) => parsing.toInt(x),
-              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-            })
+          ? console.log('Unable to access')
            : null)),
 
         _row(
@@ -521,16 +504,7 @@ const AssetDetail = {
             'Shock',
             _propLink(record, 'shock', _formatValue(record, 'shock'))),
           (isReporter(record, 'shock', publicKey) && !record.final
-          ? m(ReportValue,
-            {
-              name: 'shock',
-              label: 'Shock (g)',
-              record,
-              typeField: 'intValue',
-              type: payloads.updateProperties.enum.INT,
-              xform: (x) => parsing.toInt(x),
-              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-            })
+          ? console.log('Unable to Access')
            : null)),
 
         _row(m(ReporterControl, {
@@ -557,17 +531,6 @@ const AssetDetail = {
   }
 }
 
-const _updateLocation = (record) => {
-  getLocationPromise
-  .then(coords => {
-    _updateProperty(record, {
-      name: 'location',
-      locationValue: coords,
-      dataType: payloads.updateProperties.enum.LOCATION
-    })
-  }) 
-}
-
 const _formatValue = (record, propName) => {
   let prop = getPropertyValue(record, propName)
   if (prop) {
@@ -580,9 +543,10 @@ const _formatValue = (record, propName) => {
 const _formatCert = (prop) => {
   if (prop) {
     let weight = parsing.toFloat(prop)
-    if (weight === 1)
-    return 'Uncertified'
+    console.log(weight)
     if (weight === 2)
+    return 'Uncertified'
+    if (weight === 1)
     return 'Certified'
   } else {
     return 'Unknown'
