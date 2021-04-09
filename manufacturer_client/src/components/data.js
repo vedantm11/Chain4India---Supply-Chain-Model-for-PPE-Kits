@@ -21,7 +21,6 @@ const Chart = require('chart.js')
 const GoogleMapsLoader = require('google-maps')
 const modals = require('./modals')
 const api = require('../services/api')
-const parsing = require('../services/parsing');
 
 GoogleMapsLoader.KEY = null
 let google = null
@@ -202,21 +201,7 @@ const MapWidget = {
   }
 }
 
-// Get Current Location 
-let getLocationPromise = new Promise((resolve, reject) => {
-	if(navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function (position) {
-			resolve({latitude: parsing.toInt(position.coords.latitude), 
-					    longitude: parsing.toInt(position.coords.longitude)})
-		}, (err) => reject(err))
-
-	} else {
-		reject(console.log("your browser doesn't support geolocation API"))
-	}
-})
-
 module.exports = {
   LineGraphWidget,
-  MapWidget,
-  getLocationPromise
+  MapWidget
 }
