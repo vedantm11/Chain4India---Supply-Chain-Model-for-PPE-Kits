@@ -471,8 +471,8 @@ const AssetDetail = {
           })),
 
         _row(
-          _labelProperty('Type', getPropertyValue(record, 'type')),
-          _labelProperty('Subtype', getPropertyValue(record, 'subtype'))),
+          _labelProperty('Quality', getPropertyValue(record, 'type')),
+          _labelProperty('Quantity', getPropertyValue(record, 'subtype'))),
 
         _row(
           _labelProperty(

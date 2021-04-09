@@ -27,7 +27,8 @@ const Dashboard = {
         m('h5',
           m('em',
             'Powered by ',
-            m('strong', 'Hyperledger Sawtooth'))))
+            m('strong', 'Hyperledger Sawtooth'))),
+            m("img", { src: "https://comps.gograph.com/hospital-building-scenery-in-black-and-white_gg109242883.jpg"}))
      /* m('.blurb',
         m('p',
           m('em', 'Sawtooth Supply Chain'),

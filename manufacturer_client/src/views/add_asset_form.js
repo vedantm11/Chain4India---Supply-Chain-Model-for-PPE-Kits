@@ -29,9 +29,8 @@ const layout = require('../components/layout')
  */
 const authorizableProperties = [
   ['weight', 'Certification Status'],
-  ['location', 'Location'],
-  ['temperature', 'Temperature'],
-  ['shock', 'Shock']
+  ['location', 'Location']
+  
 ]
 
 /**
@@ -67,8 +66,8 @@ const AddAssetForm = {
         forms.textInput(setter('serialNumber'), 'Serial Number'),
 
         layout.row([
-          forms.textInput(setter('type'), 'Type'),
-          forms.textInput(setter('subtype'), 'Subtype', false)
+          forms.textInput(setter('type'), 'Quality'),
+          forms.textInput(setter('subtype'), 'Quantity', false)
         ]),
 
         forms.group(' Certification Status', forms.field_status_dropdown(setter('weight'), {
