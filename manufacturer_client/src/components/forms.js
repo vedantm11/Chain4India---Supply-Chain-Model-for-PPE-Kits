@@ -40,10 +40,7 @@ const field = (onValue, attrs = null) => {
     required: true,
     oninput: m.withAttr('value', onValue)
   }
-  /*console.log('This is onValue' + onValue)
-  console.log('This is defaults' + defaults)
-  console.log('This is defaults' + attrs)
-*/
+
   return m('input.form-control.mb-1', _.assign(defaults, attrs))
 }
 
@@ -146,42 +143,7 @@ const MultiSelect = {
     ]
   }
 }
-const field_status_dropdown = (onValue, attrs = null) => {
-  return m('form',
-  m("select",
-[    
-      m("option", {onclick: (e)=>{
-         e.preventDefault()
-         onValue(2)}}, 
-        "Uncertified"),
-     m("option", {onclick: (e)=>{
-         e.preventDefault()
-         onValue(1)}}, 
-        "Certified")
-]
 
-      ))
-}
-/*
-const field_status_dropdown = (onValue, attrs = null) => {
-  const defaults = {
-    required: true,
-    onclick: m.withAttr('value', onValue)
-  }
-
-  //let handleChange = vnode.attrs.onchange || (() => null)
-
-  return m("form",
-  m("select",       
-      m("option", onclick: (defaults, 
-        "Certified"
-      )
-    )
-  )
-
-
-}
-*/
 module.exports = {
   group,
   field,
@@ -194,6 +156,5 @@ module.exports = {
   stateSetter,
   validator,
   triggerDownload,
-  MultiSelect,
-  field_status_dropdown
+  MultiSelect
 }

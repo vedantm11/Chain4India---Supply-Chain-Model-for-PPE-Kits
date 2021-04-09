@@ -56,28 +56,20 @@ const AgentList = {
             'Key',
             'Owns',
             'Custodian',
-            'Reports',
-            'type'
+            'Reports'
           ],
           rows: vnode.state.filteredAgents.slice(
               vnode.state.currentPage * PAGE_SIZE,
               (vnode.state.currentPage + 1) * PAGE_SIZE)
-            .map((agent) => {
-              if (agent.type == 'Certifier'){
-                return [
-                  m(`a[href=/agents/${agent.key}]`, { oncreate: m.route.link },
-                    truncate(agent.name, { length: 32 })),
-                  truncate(agent.key, { length: 32 }),
-                  agent.owns.length,
-                  agent.custodian.length,
-                  agent.reports.length,
-                  agent.type
-                ]
-              } else {
-                return []
-              }
-            }),
-          noRowsText: 'No Certifiers found'
+            .map((agent) => [
+              m(`a[href=/agents/${agent.key}]`, { oncreate: m.route.link },
+                truncate(agent.name, { length: 32 })),
+              truncate(agent.key, { length: 32 }),
+              agent.owns.length,
+              agent.custodian.length,
+              agent.reports.length
+            ]),
+          noRowsText: 'No agents found'
         })
      )
     ]

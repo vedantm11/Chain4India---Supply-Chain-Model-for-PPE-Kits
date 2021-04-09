@@ -30,6 +30,8 @@ const layout = require('../components/layout')
 const authorizableProperties = [
   ['weight', 'Certification Status'],
   ['location', 'Location'],
+  ['temperature', 'Temperature'],
+  ['shock', 'Shock']
 ]
 
 /**
@@ -69,7 +71,7 @@ const AddAssetForm = {
           forms.textInput(setter('subtype'), 'Subtype', false)
         ]),
 
-        forms.group(' Certification Status', forms.field_status_dropdown(setter('weight'), {
+        forms.group(' Certification Status', forms.field(setter('weight'), {
           type: 'number',
           step: 'any',
           min: 0,
