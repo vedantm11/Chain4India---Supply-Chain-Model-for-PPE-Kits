@@ -61,7 +61,7 @@ const AddAssetForm = {
             _handleSubmit(vnode.attrs.signingKey, vnode.state)
           }
         },
-        m('legend', 'Track New Equipment'),
+        m('legend', 'Track New Asset'),
         forms.textInput(setter('serialNumber'), 'Serial Number'),
 
         layout.row([

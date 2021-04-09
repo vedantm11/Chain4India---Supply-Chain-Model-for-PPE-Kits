@@ -38,6 +38,8 @@ const {
 const authorizableProperties = [
   ['weight', 'Certification Status'],
   ['location', 'Location'],
+  ['temperature', 'Temperature'],
+  ['shock', 'Shock']
 ]
 
 const _labelProperty = (label, value) => [
@@ -482,6 +484,40 @@ const AssetDetail = {
           ),
           (isReporter(record, 'location', publicKey) && !record.final
            ? m(ReportLocation, { record, onsuccess: () => _loadData(record.recordId, vnode.state) })
+           : null)),
+
+        _row(
+          _labelProperty(
+            'Temperature',
+            _propLink(record, 'temperature', _formatTemp(getPropertyValue(record, 'temperature')))),
+          (isReporter(record, 'temperature', publicKey) && !record.final
+          ? m(ReportValue,
+            {
+              name: 'temperature',
+              label: 'Temperature (°C)',
+              record,
+              typeField: 'intValue',
+              type: payloads.updateProperties.enum.INT,
+              xform: (x) => parsing.toInt(x),
+              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
+            })
+           : null)),
+
+        _row(
+          _labelProperty(
+            'Shock',
+            _propLink(record, 'shock', _formatValue(record, 'shock'))),
+          (isReporter(record, 'shock', publicKey) && !record.final
+          ? m(ReportValue,
+            {
+              name: 'shock',
+              label: 'Shock (g)',
+              record,
+              typeField: 'intValue',
+              type: payloads.updateProperties.enum.INT,
+              xform: (x) => parsing.toInt(x),
+              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
+            })
            : null)),
 
         _row(m(ReporterControl, {
