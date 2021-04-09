@@ -130,7 +130,7 @@
       "password": "bessie",
       "publicKey": "02fb5b3a093e20e420ecf9c5839215e74c97f49eb51889069eb87bc6f62ceca8dd",
       "name": "Bessie",
-      "type": "Manufacturer",
+      "type": "Certifier",
       "email": "bessie@boeing.biz",
       "privateKey": "68ca3f7423f76397a27eb1b4185e808b953fc5b82cfa3eb2fd375de1c2e53b4e",
       "encryptedKey": "{\"iv\":\"KuOUW7sBaqb9LIHdN1uATg==\",\"v\":1,\"iter\":10000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"uiawGO8JPSA=\",\"ct\":\"A2llr54xkkxnrgvkSEDV9jIjoChmivkALO8G9c1tnQxb6qgRUWI/qcYvZxa3VxhjnZSEDeuCavF6yB8+TiPZ+0s7TgfpwfUj\"}",
