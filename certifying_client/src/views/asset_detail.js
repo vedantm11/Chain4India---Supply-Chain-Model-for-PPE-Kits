@@ -358,7 +358,7 @@ const ReportValue = {
             // }
             )),
          m('.col-2',
-           m('button.btn.btn-primary', 'Update'))))
+           m('button.btn.btn-primary', 'CERTIFY'))))
     ]
   }
 }
