@@ -1,4 +1,19 @@
-
+/**
+ * Copyright 2017 Intel Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ----------------------------------------------------------------------------
+ */
 'use strict'
 
 const m = require('mithril')
@@ -22,9 +37,7 @@ const {
  */
 const authorizableProperties = [
   ['weight', 'Certification Status'],
-  ['location', 'Location'],
-  ['temperature', 'Temperature'],
-  ['shock', 'Shock']
+  ['location', 'Location']
 ]
 
 const _labelProperty = (label, value) => [
@@ -159,7 +172,7 @@ const ReporterControl = {
         .map(([key, properties]) => {
           return [
             m('.mt-2.d-flex.justify-content-start',
-              `${_agentByKey(agents, key).name} authorized for ${properties}`,
+              `${_agentByKey(agents, key).name} authorized`,
               m('.button.btn.btn-outline-danger.ml-auto', {
                 onclick: (e) => {
                   e.preventDefault()
@@ -200,7 +213,7 @@ const ReporterControl = {
                 .then(onsuccess)
             }
           },
-          `Accept Reporting Authorization for ${proposal.properties}`),
+          `Accept Reporting Authorization`),
           m('button.btn.btn-danger.ml-auto', {
             onclick: (e) => {
               e.preventDefault()
@@ -321,7 +334,7 @@ const ReportValue = {
         m('.form-row',
           m('.form-group.col-10',
             m('label.sr-only', { 'for': vnode.attrs.name }, vnode.attrs.label),
-            m("input.form-control[type='text']", {
+            m("select", {
               name: vnode.attrs.name,
               onchange: m.withAttr('value', (value) => {
                 vnode.state.value = value
@@ -334,7 +347,23 @@ const ReportValue = {
     ]
   }
 }
+/*
+m('form',
+  m("select",
+[    
+      m("option", {onclick: (e)=>{
+         e.preventDefault()
+         onValue(2)}}, 
+        "Uncertified"),
+     m("option", {onclick: (e)=>{
+         e.preventDefault()
+         onValue(1)}}, 
+        "Certified")
+]
 
+      ))
+}
+*/
 const AuthorizeReporter = {
   oninit (vnode) {
     vnode.state.properties = []
@@ -442,24 +471,15 @@ const AssetDetail = {
           })),
 
         _row(
-          _labelProperty('Type', getPropertyValue(record, 'type')),
-          _labelProperty('Subtype', getPropertyValue(record, 'subtype'))),
+          _labelProperty('Quality', getPropertyValue(record, 'type')),
+          _labelProperty('Quantity', getPropertyValue(record, 'subtype'))),
 
         _row(
           _labelProperty(
-            'Certification*Status',
+            'Certification Status',
             _propLink(record, 'weight', _formatCert(getPropertyValue(record, 'weight')))),
           (isReporter(record, 'weight', publicKey) && !record.final
-          ? m(ReportValue,
-            {
-              name: 'weight',
-              label: 'Certification Status',
-              record,
-              typeField: 'intValue',
-              type: payloads.updateProperties.enum.INT,
-              xform: (x) => parsing.toInt(x),
-              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-            })
+          ? console.log('Certification processing')
            : null)),
 
         _row(
@@ -469,40 +489,6 @@ const AssetDetail = {
           ),
           (isReporter(record, 'location', publicKey) && !record.final
            ? m(ReportLocation, { record, onsuccess: () => _loadData(record.recordId, vnode.state) })
-           : null)),
-
-        _row(
-          _labelProperty(
-            'Temperature',
-            _propLink(record, 'temperature', _formatTemp(getPropertyValue(record, 'temperature')))),
-          (isReporter(record, 'temperature', publicKey) && !record.final
-          ? m(ReportValue,
-            {
-              name: 'temperature',
-              label: 'Temperature (°C)',
-              record,
-              typeField: 'intValue',
-              type: payloads.updateProperties.enum.INT,
-              xform: (x) => parsing.toInt(x),
-              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-            })
-           : null)),
-
-        _row(
-          _labelProperty(
-            'Shock',
-            _propLink(record, 'shock', _formatValue(record, 'shock'))),
-          (isReporter(record, 'shock', publicKey) && !record.final
-          ? m(ReportValue,
-            {
-              name: 'shock',
-              label: 'Shock (g)',
-              record,
-              typeField: 'intValue',
-              type: payloads.updateProperties.enum.INT,
-              xform: (x) => parsing.toInt(x),
-              onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-            })
            : null)),
 
         _row(m(ReporterControl, {
@@ -542,9 +528,9 @@ const _formatCert = (prop) => {
   if (prop) {
     let weight = parsing.toFloat(prop)
     console.log(weight)
-    if (weight === 1)
-    return 'Uncertified'
     if (weight === 2)
+    return 'Uncertified'
+    if (weight === 1)
     return 'Certified'
   } else {
     return 'Unknown'
