@@ -1,6 +1,22 @@
+## Project Description
+
+Substandard Quality Medical Equipment ( Masks and PPE kits) are manufactured and sold in the market at very cheap prices that are not safe. When these equipment reach hospitals they have to be Of Good Quality and Certified as they may hurt Patients As Well As Doctors and Hospital reputations. But it is difficult for hospitals to track i.e ->Where they were manufactured , How did it get there? ( problem of traceability )
+->Is it Good Quality Medical Equipment? ( problem of Trust )
+->Am I buying the equipment at an appropriate price ? ( Transparency )
+
+We are providing a Blockchain based solution using Hyperledger Sawtooth Platform. We will be able to establish a network between multiple nodes i.e. distributed ledger using Hyperledger Sawtooth Platform.
+
+## Video
+https://drive.google.com/file/d/10i2ANKeOK4_X1tXVJqlB94gqu4KZKW6C/view?usp=sharing
+
+## Presentation
+https://he-s3.s3.ap-southeast-1.amazonaws.com/media/sprint/rakathon-2021/team/984273/cb0d4c1rakathon.pptx
+
+## Demo
+https://vibrant-heyrovsky-5625d7.netlify.app/chain4india.html
+
 
 ![Hyperledger Sawtooth](images/sawtooth_logo_light_blue-small.png)
-
 
 
 ## Contents
