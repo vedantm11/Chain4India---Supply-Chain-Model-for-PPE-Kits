@@ -25,14 +25,6 @@ https://vibrant-heyrovsky-5625d7.netlify.app/chain4india.html
 ![Hyperledger Sawtooth](images/sawtooth_logo_light_blue-small.png)
 
 
-## Contents
-
-- [Components](#components)
-- [Usage](#usage)
-  - [Start Up](#start-up)
-  - [Configuring API Keys and Secrets](#configuring-api-keys-and-secrets)
-- [License](#license)
-
 ## Components
 
 Running alongside the core components from Hyperledger Sawtooth, Supply Chain
@@ -62,34 +54,3 @@ required to run Supply Chain components.
 - RethinkDB's admin panel will be available at **http://localhost:8023**
 - Sawtooth's blockchain REST API will be available at **http://localhost:8024**
 
-
-
-### Configuring API Keys and Secrets
-
-While the Server runs out of the box with sensible defaults, there are a number
-of secrets and API keys which will not be secure unless set explicitly. While
-this is fine for demo purposes, any actual deployment set the following
-properties:
-
-- **JWT_SECRET**: can be any random string
-- **PRIVATE_KEY**: must be 64 random hexadecimal characters
-- **MAPS_API_KEY**: provided by [Google Maps](https://developers.google.com/maps/documentation/javascript/get-api-key)
-
-These properties can be set one of two ways, through an environment variable,
-or (preferably) by creating a file named `config.json` file in the `server/`
-directory. A file named `config.json.example` is provided which should provide
-a template to follow.
-
-
-
-## License of Hyperledger Sawtooth 
-
-Hyperledger Sawtooth software is licensed under the
-[Apache License Version 2.0](LICENSE) software license.
-
-Hyperledger Sawtooth Supply Chain documentation in the [docs](docs)
-subdirectory is licensed under a Creative Commons Attribution 4.0 International
-License.  You may obtain a copy of the license at:
-http://creativecommons.org/licenses/by/4.0/.
-
-![Open Source Award Badge](images/rookies16-small.png)
