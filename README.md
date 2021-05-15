@@ -18,21 +18,25 @@ But it is difficult for hospitals to track i.e :
 We are providing a Blockchain based solution using Hyperledger Sawtooth Platform. 
 We will be able to establish a network between multiple nodes i.e. distributed ledger using Hyperledger Sawtooth Platform.
 
+![img3](images/img3.gif)
+
 **Hospitals as well as all the parties involved in Supply Chain are able to view all equipments and their details.**
 
+![img1](images/img1.gif)
 
+![img2](images/img2.gif)
 
 **Built trust in this system using Blockchain Technology.**
 
-
+![img6](images/img6.gif)
 
 **Requirement for Registration and Authentication (Includes Profile Management).**
 
-
+![img4](images/img4.gif)
 
 **Transfer of Equipment from one participant to another.**
 
-
+![img5](images/img5.gif)
 
 
 ## Video
