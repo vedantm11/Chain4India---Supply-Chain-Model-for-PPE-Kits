@@ -1,16 +1,39 @@
-## Project Description
+## Problem Statement:
 
-Substandard Quality Medical Equipment ( Masks and PPE kits) are manufactured and sold in the market at very cheap prices that are not safe. 
+Running alongside the core components from Hyperledger Sawtooth, Supply Chain
+includes a number of elements customizing the blockchain and user interaction
+with it:
 
-When these equipment reach hospitals they have to be Of Good Quality and Certified as they may hurt Patients As Well As Doctors and Hospital reputations. But it is difficult for hospitals to track i.e 
+Substandard Quality Medical Equipment ( Masks and PPE kits) are manufactured 
+and sold in the market at very cheap prices that are not safe. 
+When these equipment reach hospitals they have to be Of Good Quality and Certified 
+as they may hurt Patients As Well As Doctors and Hospital reputations. 
+But it is difficult for hospitals to track i.e : 
 
-->Where they were manufactured , How did it get there? ( problem of traceability )
+- a **problem of traceability** Where they were manufactured , How did it get there?
+- a **problem of Trust** Is it Good Quality Medical Equipment? 
+- a **Transparency** Am I buying the equipment at an appropriate price ? 
 
-->Is it Good Quality Medical Equipment? ( problem of Trust )
 
-->Am I buying the equipment at an appropriate price ? ( Transparency )
+We are providing a Blockchain based solution using Hyperledger Sawtooth Platform. 
+We will be able to establish a network between multiple nodes i.e. distributed ledger using Hyperledger Sawtooth Platform.
 
-We are providing a Blockchain based solution using Hyperledger Sawtooth Platform. We will be able to establish a network between multiple nodes i.e. distributed ledger using Hyperledger Sawtooth Platform.
+**Hospitals as well as all the parties involved in Supply Chain are able to view all equipments and their details.**
+
+
+
+**Built trust in this system using Blockchain Technology.**
+
+
+
+**Requirement for Registration and Authentication (Includes Profile Management).**
+
+
+
+**Transfer of Equipment from one participant to another.**
+
+
+
 
 ## Video
 https://drive.google.com/file/d/10i2ANKeOK4_X1tXVJqlB94gqu4KZKW6C/view?usp=sharing
