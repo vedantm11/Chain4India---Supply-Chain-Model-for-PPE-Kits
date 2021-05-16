@@ -10,9 +10,9 @@ When these equipment reach hospitals they have to be Of Good Quality and Certifi
 as they may hurt Patients As Well As Doctors and Hospital reputations. 
 But it is difficult for hospitals to track i.e : 
 
-- a **problem of traceability** Where they were manufactured , How did it get there?
-- a **problem of Trust** Is it Good Quality Medical Equipment? 
-- a **Transparency** Am I buying the equipment at an appropriate price ? 
+- a **problem of traceability :** Where they were manufactured , How did it get there?
+- a **problem of Trust :** Is it Good Quality Medical Equipment? 
+- a **Transparency :** Am I buying the equipment at an appropriate price ? 
 
 
 We are providing a Blockchain based solution using Hyperledger Sawtooth Platform. 
