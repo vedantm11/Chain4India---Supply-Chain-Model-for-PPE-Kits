@@ -1,8 +1,5 @@
 ## Problem Statement:
 
-Running alongside the core components from Hyperledger Sawtooth, Supply Chain
-includes a number of elements customizing the blockchain and user interaction
-with it:
 
 Substandard Quality Medical Equipment ( Masks and PPE kits) are manufactured 
 and sold in the market at very cheap prices that are not safe. 
